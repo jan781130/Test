@@ -1,0 +1,70 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.uming</groupId>
+	<artifactId>UMDP</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+
+
+	<!-- ##### Maven repository setting Start ##### -->
+	<repositories>
+		<repository>
+			<id>maven</id>
+			<name>Maven Repository</name>
+			<url>http://repo1.maven.org/maven2</url>
+		</repository>
+	</repositories>
+	<!-- ##### Maven repository setting End ##### -->
+
+
+	<!-- ##### Maven global properties setting Start ##### -->
+	<properties>
+
+		<!-- 專案版本號 -->
+		<project.version>1.0.0</project.version>
+
+		<!-- root path -->
+		<root.path>${basedir}/..</root.path>
+
+		<!-- root lib path -->
+		<root.lib.path>${basedir}/../lib</root.lib.path>
+
+		<!-- project name -->
+		<project.name>UMDP</project.name>
+
+		<!-- maven resources path -->
+		<maven.resources.path>src/main/resources</maven.resources.path>
+
+		<!-- deploy config path -->
+		<deploy.config.path>${maven.resources.path}/deploy</deploy.config.path>
+
+		<!-- dao config folder -->
+		<dao.config.folder>hibernate-config</dao.config.folder>
+
+
+		<!-- Java 版本 -->
+		<java.version>1.7</java.version>
+
+		<!-- Maven plugin 版本 -->
+		<maven.compiler.version>3.6.1</maven.compiler.version>
+		<maven.javadoc.version>2.10.4</maven.javadoc.version>
+		<maven.war.version>3.1.0</maven.war.version>
+		<maven.resource.version>3.0.2</maven.resource.version>
+	</properties>
+	
+	
+	<modules>
+		<module>FSM</module>
+		<module>Manager</module>
+		
+		<module>umdp-common</module>
+		<module>umdp-dao</module>
+		<module>umdp-mware</module>
+		<module>umdp-test</module>
+		<module>umdp-repo-jar</module>
+		<module>umdp-repo-js</module>
+		<module>umdp-test-web</module>
+		<module>umdp-config</module>
+	</modules>
+</project>
