@@ -1,0 +1,280 @@
+<style>
+    .demo-container {
+        background-color: #fff;
+        padding: 15px;
+    }
+    .demo-title {
+        color: #009bad;
+        background-color: #eee;
+        padding: 8px 15px;
+        margin: 20px -15px 10px;
+    }
+    pre{
+    	border:0;
+    	background-color:inherit;
+    }
+</style>
+<div ng-controller="basicModulesCtrl" class="fsm fsm-cp open">
+    <div class="fsm-wrapper">
+
+        <!-- //頁面內容 -->
+        
+        <div class="fsm-contents fsm-layout-col-2 fsm-layout-col-2-l">
+            <div class="container-fluid">
+                <div class="fsm-layout-contents">
+                    <div class="demo-container">
+                        <a id='top'></a>
+                        <h2>專案架構</h2>
+                        <h3 class="demo-title"></h3>
+                        <table style="width:100%">
+							<tbody>
+								<tr>
+									<td><a ng-click="scrollTo('projectStructure')">整體專案架構</a></th>
+									<td><a ng-click="scrollTo('webStructure')">前端架構</a></td>
+									<td><a ng-click="scrollTo('moduleCreate')">module建置</a></td>
+									<td><a ng-click="scrollTo('menuCreate')">menu設定</a></td>
+									<td><a ng-click="scrollTo('directiveCreate')">Directive 建立</a></td>
+									<td><a ng-click="scrollTo('serviceCreate')">Service 建立</a></td>
+								</tr>
+							</tbody>
+						</table>		
+                        <!-- Tables -->
+                        <h3 class="demo-title" id="projectStructure">整體專案架構</h3>
+                        	<pre>
+                        		<code class="no-highlight">
+|---UMDP (UMING整體專案)
+	|---FSM            (第一階段專案)
+	|---Chartering     (第二階段專案)
+	|---Future Project (第N階段專案)
+	|---Manager        (UMDP專案後台管理)
+
+|---UMDP (UMING整體專案)
+	|---umdp-common   (UMING專案 共用Utility)
+	|---umdp-dao      (UMING專案 共用DAO)   
+	|---umdp-mware    (UMING專案 WS對外接口)  
+	|---umdp-repo-jar (UMING專案 共用jar)
+	|---umdp-repo-js  (UMING專案 共用js) 
+	|---umdp-test     (UMING專案 後端test)
+	|---umdp-test-web (UMING專案 前端test)  
+   
+	|---FSM (第一階段專案)
+		|---fsm-common   (FSM專案 Utility)
+		|---fsm-dao      (FSM專案 DAO)   
+		|---fsm-module-a (FSM專案 module-a controller+service層)  
+		|---fsm-module-b (FSM專案 module-b)
+		|---fsm-repo-jar (FSM專案 jar) 
+		|---fsm-test     (FSM專案 test)
+		|---fsm-web      (FSM專案 前端)   
+		
+	|---Manager (UMDP後臺管理)
+		|---manager-common   (UMDP後臺管理  Utility)
+		|---manager-dao      (UMDP後臺管理  DAO)	
+		|---manager-fsm      (UMDP後臺管理  FSM module)   
+		|---manager-repo-jar (UMDP後臺管理 jar)  
+		|---manager-test     (UMDP後臺管理 test)
+		|---manager-web      (UMDP後臺管理 前端)
+  		
+                        		</code>
+                        	</pre>
+                        	<a ng-click="scrollTo('top')">Top</a>
+<!--                         	<a id="webStructure"></a> -->
+                        <h3 class="demo-title" id="webStructure">前端架構</h3>
+                        	<pre>
+                        		<code class="no-highlight">
+|---webapp
+   |---app
+      |---modules (專案modules放置處)
+      	 |---modules group
+      	 	|---module 1
+      	 	   |---module page.html
+      	 	   |---module controller.js
+      	 	|---module 2
+      |---routes
+      	 |---route-config.json (專案menu編輯處)
+      |---directives (專案Angular directives編輯處)
+      |---services   (專案Angular services編輯處)	 
+   |---assets 
+   	  |---plugins (專案plugin放置處)
+   	     |---plugin name (plugin 名稱)
+   	     	|---plugin version (plugin 版本)
+   	     	   |---plugin contents (plugin CSS JS)
+                        		</code>
+                        	</pre>
+                        <a ng-click="scrollTo('top')">Top</a>
+                        <h3 class="demo-title" id="moduleCreate">module建置</h3>
+                        <h4 style="margin-top:30px">module page</h4>
+                        <h4 >webapp/app/modules/module groups/module/module.html</h4>
+                        <pre>
+                        	
+                        	<code class="html">
+&lt;div ng-controller=&quot;moduleCtrl(模組名稱+Ctrl)&quot;&gt;
+	&lt;div&gt;page2&lt;/div&gt;
+	&lt;div&gt;
+		&lt;button ng-click=&quot;openDialog()&quot;&gt;open dialog&lt;/button&gt;
+	&lt;/div&gt;
+&lt;/div&gt;                       	
+                        	</code>
+                        </pre>
+                        <h4>module controller</h4>
+                        <h4 >webapp/app/modules/module groups/module/module-ctrl.js</h4>
+                        <pre>
+                        	<code class="javascript">
+(function() {
+  'use strict';
+  
+  var otherArgs = {};
+   /**
+      require js 設定
+               設定此模組需求的js css，當讀取模組時引入必要檔案 
+  **/
+  otherArgs.requireConfig = {
+	/**
+      js css 路徑設定
+	**/
+	paths: {
+      'ui-bootstrap-tpls': '//cdn.bootcss.com/angular-ui-bootstrap/1.1.2/ui-bootstrap-tpls.min',
+      'highlight':"//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min",
+      'highlight-css':window.glconfig.contentPath + "/assets/plugins/heightlight/9.12.0/styles/atom-one-dark"
+    },
+    shim: {
+      "ui-bootstrap-tpls": {
+		/**
+		  js dependency(會先讀取 andgular)
+		**/
+		deps: ['angular']
+      }
+    },
+	/**
+    需要裝配的組件
+	**/
+    loadPaths: ["ui-bootstrap-tpls","highlight","requireCss!highlight-css"] 
+  };
+  
+  /**
+    模組讀取前執行的函式
+	**/
+  otherArgs.onloadFunc = function() {
+    console.log('module1 - onload func start');
+  };
+  
+  /**
+    模組離開前執行的函式
+    在此須將之前引入的js css卸除
+	**/
+  otherArgs.offloadFunc = function() {
+    require.undef('ui-bootstrap-tpls');
+    require.undef('highlight');
+    require.undef('requireCss!highlight-css');
+    require.undefCss('highlight-css');
+    console.log('module1 - offload func start');
+  };
+  
+  otherArgs.moduleConfigArgs = [ '$controllerProvider', function($controllerProvider) {
+    console.log('module1 - config begin');
+  }];
+  
+  /**模組Controller編輯處     (模組名稱(不能重複),[相依其他模組],[查詢需求的angular service ,function(注入service){
+	 
+	 js程式碼
+	 
+  }], Args);			
+  **/
+  window.glfunc.buildNgController("module", ['ui.bootstrap'], ['$scope', function($scope) {
+    
+  }], otherArgs);
+  
+})();                        	
+                        	</code>
+                        </pre>
+                        <a ng-click="scrollTo('top')">Top</a>
+                        <h3 class="demo-title" id="menuCreate">menu設定</h3>
+                        <h4 style="margin-top:30px">webapp/app/routes/route-config.json</h4>
+						<pre>
+							<code class="json">
+{	
+	"modules": {
+		"test1 (Module Key 一階層)": {
+			"name": "測試一號",
+			"path": "/test/test1  (自動引用Controller和template 但名稱需與Key值配對)"
+		},
+		"test2": {
+			"name": "測試二號",
+			"path": "/test/test2  (Controller和template名稱與Key值不配對  需手動引入)",
+			"controller": "/Manager/app/modules/test/test2/test-ctrl.js",
+			"template": "/Manager/app/modules/test/test2/test.html"
+		},
+		"parent01 (父階層)": {
+			"name": "測試多重選單  (只需title)"
+		},
+		"child01 (子階層)": {
+			"name": "測試子選單一號",
+			"parent": "parent01 (父階層Key值)",
+			"path": "/test/test3",
+			"controller": "/Manager/app/modules/test/test3/test1-ctrl.js",
+			"template": "/Manager/app/modules/test/test3/test1.html"
+		}
+	},
+	"templateFileExt": [".html"]
+}
+							</code>
+						</pre>
+						<a ng-click="scrollTo('top')">Top</a>
+                        <h3 class="demo-title" id="directiveCreate">Angular Directives</h3>
+                        <h4 style="margin-top:30px">webapp/app/directives</h4>
+                        <a href="https://docs.angularjs.org/guide/directive">教學網址</a>
+						<p></p>
+						<pre>
+							<code class="javascript">
+/**
+ directive template	
+**/
+commonDrtv.directive('testDirective', ['$http', function($http) {
+         return {
+           restrict : 'A',
+           replace: true,
+           templateUrl : 'app/directives/templates/testDirective.html',
+           scope : {
+             id : '=?',
+             title : '=?',
+             subColumns : '=?'
+           },
+           link : function(scope, element, attrs) {
+             console.log($http);
+             console.log(scope.id);
+             console.log(scope.title);
+             console.log(scope.subColumns);
+           }
+        }
+    }]);							
+							</code>
+						</pre>
+						<a ng-click="scrollTo('top')">Top</a>
+						<h3 class="demo-title" id="serviceCreate">Angular Services</h3>
+                        <h4 style="margin-top:30px">webapp/app/services</h4>
+                        <a href="https://docs.angularjs.org/guide/services">教學網址</a>
+						<p></p>
+						<pre>
+							<code class="javascript">
+/**
+ service template	
+**/
+commonServ.factory('testService', ['$http', function($http) {
+         return {
+          start: function() {
+            alert("QQ");
+          }
+        }
+    }]);					
+							</code>
+						</pre>
+						<a ng-click="scrollTo('top')">Top</a>
+                    </div>
+	
+                </div>
+            </div>
+        </div>
+        <!-- //Footer -->
+        <footer class="fsm-footer">
+        </footer>
+    </div>
+</div>

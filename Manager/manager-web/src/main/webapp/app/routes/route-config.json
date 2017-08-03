@@ -1,0 +1,39 @@
+{
+	"modules": {
+		"parent02":{
+			"name":"教學頁面",
+			"icon":"ion-compose"
+		},
+		"child02":{
+			"name":"基本元件",
+			"parent":"parent02",
+			"path":"/intro/basicObj"
+		},
+		"child03":{
+			"name":"模組建置",
+			"parent":"parent02",
+			"path":"/intro/basicModules"
+		},
+		"child04":{
+			"name":"表格範例",
+			"parent":"parent02",
+			"path":"/intro/smartTable"
+		},
+		"child05":{
+			"name":"提醒範例",
+			"parent":"parent02",
+			"path":"/intro/notification"
+		},
+		"child06":{
+			"name":"時間選擇器",
+			"parent":"parent02",
+			"path":"/intro/datetimePicker"
+		},
+		"child07":{
+			"name":"多選",
+			"parent":"parent02",
+			"path":"/intro/mutiSelect"
+		}
+	},
+	"templateFileExt": [".html"]
+}

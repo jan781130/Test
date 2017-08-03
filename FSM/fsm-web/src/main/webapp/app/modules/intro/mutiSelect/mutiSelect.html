@@ -1,0 +1,92 @@
+<style>
+    .demo-container {
+        background-color: #fff;
+        padding: 15px;
+    }
+    .demo-title {
+        color: #009bad;
+        background-color: #eee;
+        padding: 8px 15px;
+        margin: 20px -15px 10px;
+    }
+    pre{
+    	border:0;
+    	background-color:inherit;
+    }
+    .st-selected{
+    	background-color:#11a9f5 !important;
+    }
+</style>
+<div ng-controller="mutiSelectCtrl" class="fsm fsm-cp open">
+    <div class="fsm-wrapper">
+
+        <!-- //頁面內容 -->
+        
+        <div class="fsm-contents fsm-layout-col-2 fsm-layout-col-2-l">
+            <div class="container-fluid">
+                <div class="fsm-layout-contents">
+                    <div class="demo-container">
+                        <a id='top'></a>
+                        <h2>多選範例</h2>
+                        <h3 class="demo-title">The Basic Example</h3>
+                        	<a href="http://isteven.github.io/angular-multi-select/#/configs-options">other element attrs</a><br/>	
+                        	<a href="http://isteven.github.io/angular-multi-select/#/demo-minimum">other demo</a><br/>						
+							<div class="row">
+								<div style="margin-left:20px; margin-top:20px">
+									<isteven-multi-select input-model="inputEmployee" output-model="outputEmployee" button-label="icon firstName"
+	                                                       item-label="icon firstName lastName"  tick-property="selected" on-close="selectClose()">
+	                                </isteven-multi-select>
+	                                <br/>
+	                                <br/>
+									<p>outputEmployee: {{outputEmployee}}<p>
+								</div>
+							</div>
+                        	<pre>
+                        		<code class="lang-html">
+&lt;div class=&quot;row&quot;&gt;
+	&lt;isteven-multi-select input-model=&quot;inputEmployee&quot; output-model=&quot;outputEmployee&quot; button-label=&quot;icon firstName&quot;
+						   item-label=&quot;icon firstName lastName&quot;  tick-property=&quot;selected&quot; on-close=&quot;selectClose()&quot;&gt;
+	&lt;/isteven-multi-select&gt;
+	&lt;p&gt;outputEmployee: { { outputEmployee } }&lt;p&gt;
+&lt;/div&gt;
+                        		</code>
+                        		<code class="javascript">
+  window.glfunc.buildNgController("mutiSelect", [], ['$scope','$log', function(scope, log) {
+    
+	  
+        
+	  scope.inputEmployee = [
+        	{	icon: picPath('A'),	firstName: "Alien",	lastName: "Liao",	selected: false	},
+         	{	icon: picPath('E'),	firstName: "Eddie",	lastName: "Heish",	selected: false	},
+         	{	icon: picPath('I'),	firstName: "Ian",	lastName: "Wu",	        selected: false	},
+         	{	icon: picPath('J'),	firstName: "John",	lastName: "Heish",	selected: false	},
+         	{	icon: picPath('T'),	firstName: "Tabris",    lastName: "Zhang",	selected: false	}
+
+        ];
+    
+      /**
+       * 選單關閉的CallBack
+       */
+	  scope.selectClose = function( ){
+		  angular.forEach(scope.outputEmployee, function(value){
+			  log.log(value);
+		  });  
+	  };
+	  
+	  function picPath(letter){
+		  return "&lt;img src='app/modules/intro/mutiSelect/src/"+letter+".png'&gt;";
+	  }
+	  
+  }]);
+                        		</code>
+                        	</pre>
+
+                        	
+                </div>
+            </div>
+        </div>
+        <!-- //Footer -->
+        <footer class="fsm-footer">
+        </footer>
+    </div>
+</div>

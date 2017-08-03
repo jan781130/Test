@@ -1,0 +1,63 @@
+<html>
+      <head>
+        <meta charset="UTF-8">
+        <title>README.md</title>
+      </head>
+      <body>
+        <h1 id="bootstrap-switch">Bootstrap Switch</h1>
+<p><a href="https://david-dm.org/Bttstrp/bootstrap-switch"><img src="https://david-dm.org/Bttstrp/bootstrap-switch.svg?style=flat" alt="Dependency Status"></a>
+<a href="https://david-dm.org/Bttstrp/bootstrap-switch#info=devDependencies"><img src="https://david-dm.org/Bttstrp/bootstrap-switch/dev-status.svg?style=flat" alt="devDependency Status"></a>
+<a href="https://www.npmjs.org/"><img src="http://img.shields.io/npm/v/bootstrap-switch.svg?style=flat" alt="NPM Version"></a></p>
+<p>Turn checkboxes and radio buttons into toggle switches. Created by <a href="http://github.com/nostalgiaz">Mattia Larentis</a>, maintained by <a href="http://github.com/lostcrew">Emanuele Marchi</a> and <a href="http://www.bdmdesign.org">Peter Stein</a> with the help of the community.</p>
+<p>To get started, check out <a href="https://bttstrp.github.io/bootstrap-switch">https://bttstrp.github.io/bootstrap-switch</a>!</p>
+<h2 id="quick-start">Quick start</h2>
+<p>Several quick start options are available:</p>
+<ul>
+<li>Download the <a href="https://github.com/Bttstrp/bootstrap-switch/releases/latest">latest release</a></li>
+<li>Clone the repo: <code>git clone https://github.com/Bttstrp/bootstrap-switch.git</code></li>
+<li>Install with npm: <code>npm install bootstrap-switch</code></li>
+<li>Install with yarn: <code>yarn add bootstrap-switch</code></li>
+<li>Install with Composer: <code>composer require components/bootstrap-switch</code></li>
+<li>Install with Bower: <code>bower install bootstrap-switch</code></li>
+<li>Install with NuGet: <code>PM&gt; Install-Package Bootstrap.Switch</code> (<a href="https://github.com/blachniet/bootstrap-switch-nuget">NuGet package</a>)</li>
+</ul>
+<p>Include the dependencies: jQuery, Bootstrap and Bootstrap Switch CSS + Javascript:</p>
+<pre><code class="lang-html">&lt;link href=&quot;bootstrap.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;link href=&quot;bootstrap-switch.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;script src=&quot;jquery.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;bootstrap-switch.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p>Add your checkbox:</p>
+<pre><code class="lang-html">&lt;input type=&quot;checkbox&quot; name=&quot;my-checkbox&quot; checked&gt;
+</code></pre>
+<p>Initialize Bootstrap Switch on it:</p>
+<pre><code class="lang-javascript">$(&quot;[name=&#39;my-checkbox&#39;]&quot;).bootstrapSwitch();
+</code></pre>
+<p>Enjoy.</p>
+<h2 id="supported-browsers">Supported browsers</h2>
+<p>IE9+ and all the other modern browsers.</p>
+<h2 id="less">LESS</h2>
+<ul>
+<li>For Bootstrap 2 (no longer officially supported), import <code>src/less/bootstrap2/bootstrap-switch.less</code></li>
+<li>For Bootstrap 3, import <code>src/less/bootstrap3/bootstrap-switch.less</code></li>
+</ul>
+<h2 id="bugs-and-feature-requests">Bugs and feature requests</h2>
+<p>Have a bug or a feature request? Please first search for existing and closed issues. If your problem or idea is not addressed yet, <a href="https://github.com/Bttstrp/bootstrap-switch/issues/new">please open a new issue</a>.</p>
+<p>The new issue should contain both a summary of the issue and the browser/OS environment in which it occurs and a link to the playground you prefer with the reduced test case.
+If suitable, include the steps required to reproduce the bug.</p>
+<p>Please do not use the issue tracker for personal support requests: <a href="https://stackoverflow.com/questions/tagged/bootstrap-switch">Stack Overflow</a> is a better place to get help.</p>
+<h3 id="known-issues">Known issues</h3>
+<ul>
+<li>Make sure <code>.form-control</code> is not applied to the input. Bootstrap does not support that, refer to <a href="https://getbootstrap.com/css/#checkboxes-and-radios">Checkboxes and radios</a></li>
+</ul>
+<h2 id="integrations">Integrations</h2>
+<ul>
+<li>Angular: <a href="https://github.com/frapontillo/angular-bootstrap-switch">angular-bootstrap-switch</a></li>
+<li>Angular: <a href="https://github.com/JumpLink/angular-toggle-switch">angular-toggle-switch</a></li>
+<li>Knockout: <a href="https://github.com/pauloortins/knockout-bootstrap-switch">knockout-bootstrap-switch</a></li>
+</ul>
+<h2 id="license">License</h2>
+<p>Licensed under the <a href="https://github.com/Bttstrp/bootstrap-switch/blob/master/LICENSE">MIT License</a>.</p>
+
+      </body>
+    </html>

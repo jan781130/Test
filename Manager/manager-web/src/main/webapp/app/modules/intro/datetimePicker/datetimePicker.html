@@ -1,0 +1,748 @@
+<style>
+    .demo-container {
+        background-color: #fff;
+        padding: 15px;
+    }
+    .demo-title {
+        color: #009bad;
+        background-color: #eee;
+        padding: 8px 15px;
+        margin: 20px -15px 10px;
+    }
+    pre{
+    	border:0;
+    }
+    .st-selected{
+    	background-color:#11a9f5 !important;
+    }
+    .datetimepicker {
+            width: 400px;
+    }
+</style>
+<div ng-controller="datetimePickerCtrl" class="fsm fsm-cp open">
+    <div class="fsm-wrapper">
+
+        <!-- //頁面內容 -->
+        
+        <div class="fsm-contents fsm-layout-col-2 fsm-layout-col-2-l">
+            <div class="container-fluid">
+                <div class="fsm-layout-contents">
+                    <div class="demo-container">
+                        <a id='top'></a>
+                        <h2>時間選擇器</h2>
+                        <h3 class="demo-title" id="projectStructure">Notification Creator</h3>
+
+					    <div class="row">
+							
+							<div class="col-sm-6">
+					            <h3>Basic Drop-down Datetime</h3>
+					            <p>最基本的Datetime Seletor  P.S.input輸入會報錯</p>
+					            <p>如要給使用者用keyboard輸入請用 angular-date-time-input(ex2)</p>					
+					            <a href="https://github.com/dalelotts/angular-bootstrap-datetimepicker"><code>教學網站</code></a>
+
+					            <div class="well">
+					                <p>Formatted Date: {{ data.dateBasic | date:'medium' }}</p>
+					
+					                <div class="dropdown dropdown1-parent">
+					                    <a class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown" data-target=".dropdown1-parent" href="#">
+					                        <div class="input-group">
+					                            <input type="text" class="form-control" data-ng-model="data.dateBasic">
+					                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					                        </div>
+					                    </a>
+					                    <ul class="dropdown-menu" role="menu">
+					                        <datetimepicker data-ng-model="data.dateBasic" 
+					                        			data-datetimepicker-config="basicConfig" 
+					                        			data-on-set-time="basicTimeSet(newDate, oldDate)"
+					                        			data-before-render="basicBeforeRender($view, $dates, $leftDate, $upDate, $rightDate)"></datetimepicker>
+					                    </ul>
+					                </div>
+					            </div>
+					        </div>
+					    </div>    
+						<div class="row">
+							<h4>html</h4>
+							<pre>
+								<code class="html">
+&lt;p&gt;Formatted Date: { { data.dateBasic | date:'medium' } }&lt;/p&gt;								
+&lt;div class=&quot;dropdown dropdown1-parent&quot;&gt;
+&lt;!-- &#36229;&#36899;&#32080;&#33267;&#19979;&#26041;datetimepicker data-target=&quot;div&#20839;&#30340;Class&quot; --&gt;
+	&lt;a class=&quot;dropdown-toggle&quot; id=&quot;dropdown1&quot; role=&quot;button&quot; data-toggle=&quot;dropdown&quot; data-target=&quot;.dropdown1-parent&quot; href=&quot;#&quot;&gt;
+		&lt;div class=&quot;input-group&quot;&gt;
+			&lt;!-- data-ng-model &#32129;&#23450; Scope model--&gt;
+			&lt;input type=&quot;text&quot; class=&quot;form-control&quot; data-ng-model=&quot;data.dateBasic&quot;&gt;
+			&lt;!-- &#24460;&#26041;&#25353;&#37397;&#22294;&#26696;--&gt;
+			&lt;span class=&quot;input-group-addon&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-calendar&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+		&lt;/div&gt;
+	&lt;/a&gt;
+	
+	&lt;ul class=&quot;dropdown-menu&quot; role=&quot;menu&quot;&gt;
+		&lt;!-- data-ng-model &#32129;&#23450; Scope model 
+			 data-datetimepicker-config &#32129;&#23450; datetimepicker&#35373;&#23450;&#27284;
+			 data-on-set-time &#36984;&#23450;&#26085;&#26399;&#24460;&#22519;&#34892;&#30340;call back &#20659;&#20837;&#20108;&#21443;&#25976;
+			 data-before-render render&#38913;&#38754;&#22519;&#34892;&#30340;call back &#21487;&#20659;&#20837;&#20116;&#21443;&#25976;
+			 --&gt;				
+		&lt;datetimepicker data-ng-model=&quot;data.dateBasic&quot; 
+				data-datetimepicker-config=&quot;basicConfig&quot; 
+				data-on-set-time=&quot;basicTimeSet(newDate, oldDate)&quot;
+				data-before-render=&quot;basicBeforeRender($view, $dates, $leftDate, $upDate, $rightDate)&quot;&gt;&lt;/datetimepicker &gt;
+	&lt;/ul&gt;
+&lt;/div&gt;									
+								</code>
+							</pre>
+							<h4>javascript</h4>
+							<pre>
+								<code class="javascript">
+  /**
+   * require js 引入 angular datetime picker template
+   */  
+  otherArgs.requireConfig = {
+    loadPaths: ["angularDatetimepickerTemp"]
+  };
+
+  /**
+   * 離開模組刪除
+   */  
+  otherArgs.offloadFunc = function() {
+	require.undef('angularDatetimepickerTemp');
+  };
+  
+  
+  /**
+   * 注入ui.bootstrap.datetimepicker
+   *(angular datetime picker 的 module)
+   */
+  window.glfunc.buildNgController("datetimePicker", ['ui.bootstrap.datetimepicker'], ['$scope', function($scope) {
+	 
+	  /**
+	   *  Config 參數
+	   *  {
+	   *  	dropdownSelector : '#dropdown Id', //toggle dropdown當selected
+	   *  	startView : 'minute|hour|day|month|year', //dropdown打開的init view, Default day
+	   *  	minView : 'minute|hour|day|month|year', //dropdown結束的view,必須 =< startView, Default minute
+	   *    minuteStep : number, // minute view increment, default 5
+	   *    configureOn : 'event-name', //listen event-name,當觸發時重新讀Config檔, default null
+	   *    renderOn : 'event-name', //listen event-name,當觸發時重新render dateObject, default null
+	   *    modelType : 'Date | moment | milliseconds | other string' //回傳model型態, defult Date。 P.S. other string小心使用 假如設定yyyy/mm/dd，input型態對不起來會報錯
+	   *  }
+	   */
+	 
+	  	  
+	  $scope.basicConfig = {
+			dropdownSelector: '#dropdown1'
+	  };
+	  
+	  //&lt;---------------call back function start(不需要可以不要用)---------->
+	  
+	  /**
+	   * desp : datetime Picker 啟動前執行的function
+	   * param : $view render的view name
+	   *         $dates array of DateObject's (可被選擇的 DateObject)
+	   *         $leftDate  點選← 傳回的 DateObject
+	   *         $upDate    點選上方文字 傳回的 DateObject
+	   *         $rightDate 點選→ 傳回的 DateObject
+	   */	 	  
+	  $scope.basicBeforeRender = function($view, $dates, $leftDate, $upDate, $rightDate){
+			  console.log('啟動');
+			  console.log('$view='+$view);
+			  console.log('$dates='+$dates);
+			  console.log('$leftDate='+$leftDate);
+			  console.log('$upDate='+$upDate);
+			  console.log('$rightDate='+$rightDate);
+	  }
+	  
+	/**      自己看
+	  * 	 DateObject {
+	  *		    utcDateValue: Number - UTC time value of this date object. It does NOT contain time zone information so take that into account when comparing to other dates (or use localDateValue function).
+	  *		    localDateValue: FUNCTION that returns a Number - local time value of this date object - same as moment.valueOf() or Date.getTime().
+	  *		    display: String - the way this value will be displayed on the calendar.
+	  *		    active: true | false | undefined - indicates that date object is part of the model value.
+	  *		    selectable: true | false | undefined - indicates that date value is selectable by the user.
+	  *		    past: true | false | undefined - indicates that date value is prior to the date range of the current view.
+	  *		    future: true | false | undefined - indicates that date value is after the date range of the current view.
+	  *		}
+	  */	  
+	  
+	  /**
+	   * desp : datetime Picker 選擇完時間後執行Call Back
+	   * param : newDate 新選擇時間
+	   *         oldDate 原選擇時間 
+	   */ 	  
+	  $scope.basicTimeSet = function(newDate,oldDate){
+		  console.log(newDate);
+		  console.log(oldDate);
+	  }
+	  
+	//&lt;---------------call back function end---------->
+	  
+  }], otherArgs);								
+								</code>
+							</pre>
+						</div>	
+
+						<div class="row">	
+					        <div class="col-sm-6">
+					            <h3>Drop-down Datetime with input box</h3>
+					            <h4>使用 <a href="https://github.com/dalelotts/angular-date-time-input"><code>angular-date-time-input</code></a>
+					                directive</h4>
+					
+					            <p>可以使用鍵盤輸入  選擇的日期也會依照設定格式顯示在input</p>
+					            <p>data-date-time-input="YYYY-MM-DD HH:mm a"</p>
+					            <p>使用前注入module:ui.dateTimeInput</p>
+					            <div class="well">
+					                <p>Formatted Date: {{ data.dateDropDownInput | date:'medium' }}</p>
+					
+					                <div class="dropdown dropdown2-parent">
+					                    <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target=".dropdown2-parent"
+					                       href="#">
+					                        <div class="input-group">
+					                            <input type="text" class="form-control" data-ng-model="data.dateDropDownInput"
+					                                   data-date-time-input="YYYY-MM-DD HH:mm a">
+					                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					                        </div>
+					                    </a>
+					                    <ul class="dropdown-menu" role="menu">
+					                        <datetimepicker data-ng-model="data.dateDropDownInput"
+					                                        data-datetimepicker-config="{ dropdownSelector: '#dropdown2'}"></datetimepicker>
+					                    </ul>
+					                </div>
+					            </div>
+					        </div>
+					        
+					    </div>
+					    <div class="row">
+					    <h4>html</h4>
+					    <pre>
+					    	<code class="html">
+&lt;p&gt;Formatted Date: { { data.dateDropDownInput | date:'medium' } }&lt;/p&gt;
+
+&lt;div class=&quot;dropdown dropdown2-parent&quot;&gt;
+	&lt;a class=&quot;dropdown-toggle&quot; id=&quot;dropdown2&quot; role=&quot;button&quot; data-toggle=&quot;dropdown&quot; data-target=&quot;.dropdown2-parent&quot;
+	   href=&quot;#&quot;&gt;
+		&lt;div class=&quot;input-group&quot;&gt;
+			&lt;!-- &#21033;&#29992; data-date-time-input directive &#35731;&#37749;&#30436;&#36664;&#20837;&#26085;&#26399;&#38480;&#21046;&#26684;&#24335; --&gt;
+			&lt;input type=&quot;text&quot; class=&quot;form-control&quot; data-ng-model=&quot;data.dateDropDownInput&quot;
+				   data-date-time-input=&quot;YYYY-MM-DD HH:mm a&quot;&gt;
+			&lt;span class=&quot;input-group-addon&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-calendar&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+		&lt;/div&gt;
+	&lt;/a&gt;
+	&lt;ul class=&quot;dropdown-menu&quot; role=&quot;menu&quot;&gt;
+		&lt;datetimepicker data-ng-model=&quot;data.dateDropDownInput&quot;
+						data-datetimepicker-config=&quot;{ dropdownSelector: '#dropdown2'}&quot;&gt;&lt;/datetimepicker&gt;
+	&lt;/ul&gt;
+&lt;/div&gt;					    	
+					    	
+					    	</code>
+					    </pre>
+					    </div>	
+					    						
+					    <div class="row">
+					        <div class="col-sm-12">
+					            <h3>Date range picker</h3>
+					            <h4>選擇Start Date, 比選定日期早的End Date會Disable,反之亦然</h4>
+					            <h4>邏輯:</h4>
+					            <p><strong>Start Date:</strong><br/>
+					            <code>data-datetimepicker-config</code>新增屬性<code>renderOn: 'end-date-changed'</code> 
+					                              使picker監聽end date picker change,有改變rerender directive<br/>
+					            <code>data-on-set-time="startDateOnSetTime()"</code>broadcast start date changes event,觸發end date picker rerender<br/>
+					            <code>data-before-render="beforeRenderStartDate($view, $dates)"</code>
+					            disabled 比選定end date晚的日期</p>
+					            
+					            <p><strong>End Date:</strong><br/>
+					            <code>data-datetimepicker-config</code>新增屬性<code>renderOn: 'start-date-changed'</code> 
+					                              使picker監聽start date picker change,有改變rerender directive<br/>
+					            <code>data-on-set-time="endDateOnSetTime()"</code>broadcast end date changes event,觸發start date picker rerender<br/>
+					            <code>data-before-render="beforeRenderEndDate($view, $dates)"</code>
+					            disabled 比選定start date早的日期</p>
+					       					
+					            <div class="well">
+					                <div class="dropdown form-group dropdown8-parent">
+					                    <label>Start Date</label>
+					                    <a class="dropdown-toggle" id="dropdownStart" role="button" data-toggle="dropdown" data-target=".dropdown8-parent"
+					                       href="#">
+					                        <div class="input-group date">
+					                            <input type="text" class="form-control" data-ng-model="dateRangeStart">
+					                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					                        </div>
+					                    </a>
+					                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+					                        <datetimepicker data-ng-model="dateRangeStart"
+					                                        data-datetimepicker-config="{ dropdownSelector: '#dropdownStart', renderOn: 'end-date-changed', minView: 'day' }"
+					                                        data-on-set-time="startDateOnSetTime()"
+					                                        data-before-render="startDateBeforeRender($view, $dates)"></datetimepicker>
+					                    </ul>
+					                </div>
+					
+					                <div class="dropdown form-group dropdown9-parent">
+					                    <label>End Date</label>
+					                    <a class="dropdown-toggle" id="dropdownEnd" role="button" data-toggle="dropdown" data-target=".dropdown9-parent"
+					                       href="#">
+					                        <div class="input-group date">
+					                            <input type="text" class="form-control" data-ng-model="dateRangeEnd">
+					                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					                        </div>
+					                    </a>
+					                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+					                        <datetimepicker data-ng-model="dateRangeEnd"
+					                                        data-datetimepicker-config="{ dropdownSelector: '#dropdownEnd', renderOn: 'start-date-changed', minView: 'day' }"
+					                                        data-on-set-time="endDateOnSetTime()"
+					                                        data-before-render="endDateBeforeRender($view, $dates)"></datetimepicker>
+					                    </ul>
+					                </div>
+					            </div>
+					        </div>
+					    </div>							
+						<div class="row">
+							<h4>html</h4>
+							<pre>
+								<code class='html'>
+&lt;div class=&quot;dropdown form-group dropdown8-parent&quot;&gt;
+	&lt;label&gt;Start Date&lt;/label&gt;
+	&lt;a class=&quot;dropdown-toggle&quot; id=&quot;dropdownStart&quot; role=&quot;button&quot; data-toggle=&quot;dropdown&quot; data-target=&quot;.dropdown8-parent&quot;
+	   href=&quot;#&quot;&gt;
+		&lt;div class=&quot;input-group date&quot;&gt;
+			&lt;input type=&quot;text&quot; class=&quot;form-control&quot; data-ng-model=&quot;dateRangeStart&quot;&gt;
+			&lt;span class=&quot;input-group-addon&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-calendar&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+		&lt;/div&gt;
+	&lt;/a&gt;
+	&lt;ul class=&quot;dropdown-menu&quot; role=&quot;menu&quot; aria-labelledby=&quot;dLabel&quot;&gt;
+		&lt;datetimepicker data-ng-model=&quot;dateRangeStart&quot;
+				data-datetimepicker-config=&quot;{ dropdownSelector: '#dropdownStart', renderOn: 'end-date-changed' }&quot;
+				data-on-set-time=&quot;startDateOnSetTime()&quot;
+				data-before-render=&quot;startDateBeforeRender($view, $dates)&quot;&gt;&lt;/datetimepicker&gt;
+	&lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;dropdown form-group dropdown9-parent&quot;&gt;
+	&lt;label&gt;End Date&lt;/label&gt;
+	&lt;a class=&quot;dropdown-toggle&quot; id=&quot;dropdownEnd&quot; role=&quot;button&quot; data-toggle=&quot;dropdown&quot; data-target=&quot;.dropdown9-parent&quot;
+	   href=&quot;#&quot;&gt;
+		&lt;div class=&quot;input-group date&quot;&gt;
+			&lt;input type=&quot;text&quot; class=&quot;form-control&quot; data-ng-model=&quot;dateRangeEnd&quot;&gt;
+			&lt;span class=&quot;input-group-addon&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-calendar&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+		&lt;/div&gt;
+	&lt;/a&gt;
+	&lt;ul class=&quot;dropdown-menu&quot; role=&quot;menu&quot; aria-labelledby=&quot;dLabel&quot;&gt;
+		&lt;datetimepicker data-ng-model=&quot;dateRangeEnd&quot;
+				data-datetimepicker-config=&quot;{ dropdownSelector: '#dropdownEnd', renderOn: 'start-date-changed' }&quot;
+				data-on-set-time=&quot;endDateOnSetTime()&quot;
+				data-before-render=&quot;endDateBeforeRender($view, $dates)&quot;&gt;&lt;/datetimepicker&gt;
+	&lt;/ul&gt;
+&lt;/div&gt;								
+								</code>
+							</pre>
+							<pre>
+								<code class="javascript">
+  /**
+   * 注入包好的Service datePickerRange
+   */
+  window.glfunc.buildNgController("datetimePicker", ['ui.bootstrap.datetimepicker','ui.dateTimeInput'], ['$scope','datePickerRange', function($scope, datePickerRange) {
+	   
+	        /**
+			  * broadcast event 'start-date-changed' 給觸發render on (如果同一頁面有多個picker，event name要不同)
+			  */
+			$scope.startDateOnSetTime = function () {
+			     $scope.$broadcast('start-date-changed');
+		    }
+
+	        /**
+			  * broadcast event 'end-date-changed' 給觸發render on (如果同一頁面有多個picker，event name要不同)
+			  */			
+			$scope.endDateOnSetTime = function () {
+			     $scope.$broadcast('end-date-changed');
+		    }
+			
+	        /**
+			  * end-date-changed event觸發 執行程式
+			  * start date 限制在 end date 前面
+			  */			
+			$scope.startDateBeforeRender = function($dates){
+				datePickerRange.limitEnd($view, $dates, $scope.dateRangeEnd);
+			}
+
+	        /**
+			  * start-date-changed event觸發 執行程式
+			  * end date 限制在start date 後面
+			  */			
+			$scope.endDateBeforeRender = function($view, $dates){
+				datePickerRange.limitStart($view, $dates, $scope.dateRangeStart);
+			}
+
+	  
+  }], otherArgs);								
+								</code>
+							</pre>
+						</div>
+						<div class="row">
+							<div class="col-sm-6"> 
+								<h3>Drop-down DateTime limit start date</h3>
+								<div class="well">
+									<div class="dropdown form-group dropdown10-parent">
+						                    <label>limit Start Date after today</label>
+						                    <a class="dropdown-toggle" id="dropdownStartLimit" role="button" data-toggle="dropdown" data-target=".dropdown10-parent"
+						                       href="#">
+						                        <div class="input-group date">
+						                            <input type="text" class="form-control" data-ng-model="dateStartLimit" data-date-time-input="YYYY-MM-DD">
+						                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+						                        </div>
+						                    </a>
+						                    <ul class="dropdown-menu" role="menu">
+						                        <datetimepicker data-ng-model="dateStartLimit"
+						                                        data-datetimepicker-config="{ dropdownSelector: '#dropdownStartLimit', minView: 'day'}"
+						                                        data-before-render="startLimitBeforeRender($view,$dates)"></datetimepicker>
+						                    </ul>
+						                </div>
+						          </div>     
+							</div>
+							<div class="col-sm-6"> 
+								<h3>Drop-down DateTime limit end date</h3>
+								<div class="well">
+									<div class="dropdown form-group dropdown11-parent">
+						                    <label>limit end Date before today</label>
+						                    <a class="dropdown-toggle" id="dropdownEndLimit" role="button" data-toggle="dropdown" data-target=".dropdown11-parent"
+						                       href="#">
+						                        <div class="input-group date">
+						                            <input type="text" class="form-control" data-ng-model="dateEndLimit" data-date-time-input="YYYY-MM-DD">
+						                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+						                        </div>
+						                    </a>
+						                    <ul class="dropdown-menu" role="menu">
+						                        <datetimepicker data-ng-model="dateEndLimit"
+						                                        data-datetimepicker-config="{ dropdownSelector: '#dropdownEndLimit', minView: 'day'}"
+						                                        data-before-render="endLimitBeforeRender($view,$dates)"></datetimepicker>
+						                    </ul>
+						                </div>
+						          </div>     
+							</div>
+						</div>
+						<div class="row">
+							<pre>
+								<code class="html">
+&lt;div class=&quot;col-sm-6&quot;&gt; 
+	&lt;h3&gt;Drop-down DateTime limit start date&lt;/h3&gt;
+	&lt;div class=&quot;well&quot;&gt;
+		&lt;div class=&quot;dropdown form-group dropdown10-parent&quot;&gt;
+				&lt;label&gt;limit Start Date after today&lt;/label&gt;
+				&lt;a class=&quot;dropdown-toggle&quot; id=&quot;dropdownStartLimit&quot; role=&quot;button&quot; data-toggle=&quot;dropdown&quot; data-target=&quot;.dropdown10-parent&quot;
+				   href=&quot;#&quot;&gt;
+					&lt;div class=&quot;input-group date&quot;&gt;
+						&lt;input type=&quot;text&quot; class=&quot;form-control&quot; data-ng-model=&quot;dateStartLimit&quot; data-date-time-input=&quot;YYYY-MM-DD&quot;&gt;
+						&lt;span class=&quot;input-group-addon&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-calendar&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+					&lt;/div&gt;
+				&lt;/a&gt;
+				&lt;ul class=&quot;dropdown-menu&quot; role=&quot;menu&quot;&gt;
+					&lt;datetimepicker data-ng-model=&quot;dateStartLimit&quot;
+									data-datetimepicker-config=&quot;{ dropdownSelector: '#dropdownStartLimit', minView: 'day'}&quot;
+									data-before-render=&quot;startLimitBeforeRender($view,$dates)&quot;&gt;&lt;/datetimepicker&gt;
+				&lt;/ul&gt;
+			&lt;/div&gt;
+	  &lt;/div&gt;     
+&lt;/div&gt;
+&lt;div class=&quot;col-sm-6&quot;&gt; 
+	&lt;h3&gt;Drop-down DateTime limit end date&lt;/h3&gt;
+	&lt;div class=&quot;well&quot;&gt;
+		&lt;div class=&quot;dropdown form-group dropdown11-parent&quot;&gt;
+				&lt;label&gt;limit end Date before today&lt;/label&gt;
+				&lt;a class=&quot;dropdown-toggle&quot; id=&quot;dropdownEndLimit&quot; role=&quot;button&quot; data-toggle=&quot;dropdown&quot; data-target=&quot;.dropdown11-parent&quot;
+				   href=&quot;#&quot;&gt;
+					&lt;div class=&quot;input-group date&quot;&gt;
+						&lt;input type=&quot;text&quot; class=&quot;form-control&quot; data-ng-model=&quot;dateEndLimit&quot; data-date-time-input=&quot;YYYY-MM-DD&quot;&gt;
+						&lt;span class=&quot;input-group-addon&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-calendar&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+					&lt;/div&gt;
+				&lt;/a&gt;
+				&lt;ul class=&quot;dropdown-menu&quot; role=&quot;menu&quot;&gt;
+					&lt;datetimepicker data-ng-model=&quot;dateEndLimit&quot;
+									data-datetimepicker-config=&quot;{ dropdownSelector: '#dropdownEndLimit', minView: 'day'}&quot;
+									data-before-render=&quot;endLimitBeforeRender($view,$dates)&quot;&gt;&lt;/datetimepicker&gt;
+				&lt;/ul&gt;
+			&lt;/div&gt;
+	  &lt;/div&gt;     
+&lt;/div&gt;								
+								</code>
+							</pre>
+							<pre>
+								<code class="javascript">
+ window.glfunc.buildNgController("datetimePicker", ['ui.bootstrap.datetimepicker','ui.dateTimeInput'], ['$scope','datePickerRange', function($scope, datePickerRange) {
+			
+			$scope.startLimitBeforeRender = function($view, $dates){
+				datePickerRange.limitStart($view, $dates, new Date());
+			}
+		    
+			$scope.endLimitBeforeRender = function ($view, $dates){
+				datePickerRange.limitEnd($view, $dates, new Date());
+			}	
+ 
+ }], otherArgs);								
+								</code>
+							</pre>
+						</div>	
+					   <div class="row">					
+					        <div class="col-sm-6">
+					            <h3>Drop-down Datetime form integration</h3>
+					
+					            <p><code>dropdownSelector: '#dropdown4'</code> to toggle the dropdown.</p>
+					
+					            <p>This example shows a date picker that has the required attribute.
+					                Note that the user must type into the input to toggle dirty/pristine. </p>
+					
+					            <div class="well">
+					                <form name="datePickerWithInputForm" novalidate>
+					                    <p>Formatted Date: {{ data.dateDropDownWithInput | date:'yyyy-MM-dd h:mm a' }}</p>
+					
+					                    <p>
+					                        <span class="label label-warning"
+					                              data-ng-show="datePickerWithInputForm.formDateValue.$dirty">dirty</span>
+					                        <span class="label label-info"
+					                              data-ng-show="datePickerWithInputForm.formDateValue.$pristine">pristine</span>
+					                        <span class="label label-success"
+					                              data-ng-show="datePickerWithInputForm.formDateValue.$valid">valid</span>
+					                        <span class="label label-danger"
+					                              data-ng-show="datePickerWithInputForm.formDateValue.$invalid">invalid</span>
+					                    </p>
+					
+					                    <p>
+					                        <button type="button" class="btn btn-default" data-ng-click="data.dateDropDownWithInput = null">
+					                            Set to null
+					                        </button>
+					                    </p>
+					
+					                    <div class="dropdown dropdown4-parent">
+					                        <a class="dropdown-toggle" id="dropdown4" role="button" data-toggle="dropdown" data-target=".dropdown4-parent"
+					                           href="#">
+					                            <div class="input-group">
+					                                <input type="text" class="form-control" name="formDateValue" data-ng-required="true"
+					                                       data-ng-model="data.dateDropDownWithInput">
+					                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					                            </div>
+					                        </a>
+					                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+					                            <datetimepicker data-ng-model="data.dateDropDownWithInput"
+					                                            data-datetimepicker-config="{ dropdownSelector: '#dropdown4' }"></datetimepicker>
+					                        </ul>
+					                    </div>
+					                </form>
+					            </div>
+					        </div>
+					    </div>
+					
+					    <div class="row">
+					
+					        <div class="col-sm-6">
+					            <h3>Drop-down using text link</h3>
+					
+					            <p><code>dropdownSelector: '#dropdown5'</code> to toggle the dropdown.</p>
+					
+					            <div class="well">
+					                <p>Formatted Date: {{ data.linkCalendar | date:'medium' }}</p>
+					
+					                <div class="dropdown dropdown5-parent">
+					                    <a class="dropdown-toggle" id="dropdown5" role="button" data-toggle="dropdown" data-target="dropdown5-parent"
+					                       href="#">
+					                        Click here to show calendar
+					                    </a>
+					                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+					                        <datetimepicker data-ng-model="data.linkCalendar"
+					                                        data-datetimepicker-config="{ dropdownSelector: '#dropdown5' }"></datetimepicker>
+					                    </ul>
+					                </div>
+					            </div>
+					        </div>
+					
+					        <div class="col-sm-6">
+					            <h3>Show / hide with check box</h3>
+					
+					            <p><code>startView: 'day'</code> and <code>minuteStep: 15</code></p>
+					
+					            <p><code>data-on-set-time='checkboxOnTimeSet()'</code> to toggle visibility.</p>
+					
+					            <div class="well">
+					                <p>Formatted Date: {{ data.checkboxCalendar | date:'medium' }}</p>
+					                Click me to show/hide via ng-show: <input type="checkbox" data-ng-model="data.checked"><br/>
+					                <datetimepicker data-ng-model="data.checkboxCalendar" data-ng-show="data.checked"
+					                                data-datetimepicker-config="{ startView: 'day', minuteStep: 15 }"
+					                                data-on-set-time="checkboxOnTimeSet(newDate)"></datetimepicker>
+					            </div>
+					        </div>
+					
+					
+					    </div>
+					
+					    <div class="row">
+					        <div class="col-sm-6">
+					            <h3>Embedded calendar</h3>
+					
+					            <p>Default configuration</p>
+					
+					            <div class="well">
+					                <p>Formatted Date: {{ data.embeddedYear | date:'yyyy-MM-dd h:mm a' }}</p>
+					
+					                <datetimepicker data-ng-model="data.embeddedYear"></datetimepicker>
+					            </div>
+					        </div>
+					
+					        <div class="col-sm-6">
+					            <h3>Embedded calendar form integration</h3>
+					
+					            <p>This example shows a date picker that has the required attribute.
+					                Note that without an input, only validity is tracked by ngModel. </p>
+					
+					            <div class="well">
+					                <form name="datePickerForm" novalidate>
+					                    <p>Formatted Date: {{ data.formDate | date:'yyyy-MM-dd h:mm a' }}</p>
+					
+					                    <p>
+					                        <span class="label label-warning"
+					                              data-ng-show="datePickerForm.formDateValue.$dirty">dirty</span>
+					                        <span class="label label-info"
+					                              data-ng-show="datePickerForm.formDateValue.$pristine">pristine</span>
+					                        <span class="label label-success"
+					                              data-ng-show="datePickerForm.formDateValue.$valid">valid</span>
+					                        <span class="label label-danger"
+					                              data-ng-show="datePickerForm.formDateValue.$invalid">invalid</span>
+					                    </p>
+					
+					                    <button type="button" class="btn btn-default" data-ng-click="data.formDate = null">Set to null
+					                    </button>
+					                    <datetimepicker data-ng-model="data.formDate" data-ng-required="true"
+					                                    name="formDateValue"></datetimepicker>
+					                </form>
+					            </div>
+					        </div>
+					    </div>
+					
+					
+					    <div class="row">
+					        <div class="col-sm-6">
+					            <h3>Embedded calendar with property configuration</h3>
+					
+					            <p><code>data-datetimepicker-config="config.datetimePicker"</code></p>
+					
+					            <p>which returns <code>{ startView: 'year' }</code></p>
+					
+					            <div class="well">
+					                <p>Formatted Date: {{ data.embeddedPropertyConfig | date:'yyyy-MM-dd h:mm a' }}</p>
+					
+					                <datetimepicker data-ng-model="data.embeddedPropertyConfig"
+					                                data-datetimepicker-config="config.datetimePicker"></datetimepicker>
+					            </div>
+					        </div>
+					        <div class="col-sm-6">
+					            <h3>Embedded calendar with function configuration</h3>
+					
+					            <p><code>data-datetimepicker-config="configFunction()"</code></p>
+					
+					            <p>which returns <code>{ startView: 'month' }</code></p>
+					
+					            <div class="well">
+					                <p>Formatted Date: {{ data.embeddedFunctionConfig | date:'yyyy-MM-dd h:mm a' }}</p>
+					
+					                <datetimepicker data-ng-model="data.embeddedFunctionConfig"
+					                                data-datetimepicker-config="configFunction()"></datetimepicker>
+					            </div>
+					        </div>
+					
+					    </div>
+					
+					    <div class="row">
+					        <div class="col-sm-6">
+					            <h3>ng-repeat with drop-down using text link</h3>
+					
+					            <p><code>data-on-set-time="guardianOnSetTime($index, guardian, newDate, oldDate)"</code></p>
+					
+					            <div class="well" data-ng-repeat="guardian in data.guardians">
+					                <p>{{ guardian.name }}</p>
+					
+					                <p>DOB: {{ guardian.dob | date:'yyyy-MM-dd' }} </p>
+					
+					                <div class="dropdown dropdown6-parent">
+					                    <a class="dropdown-toggle" id="guardian{{ $index }}" role="button" data-toggle="dropdown"
+					                       data-target=".dropdown6-parent"
+					                       href="#">
+					                        Click here to show calendar
+					                    </a>
+					                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+					                        <datetimepicker data-ng-model="guardian.dob"
+					                                        data-on-set-time="guardianOnSetTime($index, guardian, newDate, oldDate)"></datetimepicker>
+					                    </ul>
+					                </div>
+					            </div>
+					        </div>
+					
+					        <div class="col-sm-6">
+					            <h3>Drop-down Datetime with restricted dates</h3>
+					            <h4>One date - somewhere near the middle of the display - is disabled on each view</h4>
+					
+					            <p><code>dropdownSelector: '#dropdown6'</code> to toggle the dropdown.</p>
+					
+					            <div class="well">
+					                <p>Formatted Date: {{ data.dateDropDownInputNoFormatting | date:'medium' }}</p>
+					
+					                <div class="dropdown dropdown7-parent">
+					                    <a class="dropdown-toggle" id="dropdown6" role="button" data-toggle="dropdown" data-target=".dropdown7-parent"
+					                       href="#">
+					                        <div class="input-group">
+					                            <input type="text" class="form-control" data-ng-model="data.dateDropDownInputNoFormatting">
+					                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					                        </div>
+					                    </a>
+					                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+					                        <datetimepicker data-ng-model="data.dateDropDownInputNoFormatting"
+					                                        data-datetimepicker-config="{ dropdownSelector: '#dropdown6' }"
+					                                        data-before-render="beforeRender($dates)"></datetimepicker>
+					                    </ul>
+					                </div>
+					            </div>
+					        </div>
+					    </div>
+					    <div class="row">
+					
+					        <div class="col-sm-6">
+					            <h3>Embedded calendar with configureOn</h3>
+					            <h4>Every time you click the button, the startView is changed</h4>
+					
+					            <p><code>configureOn: 'config-changed'</code> to cause the directive to re-read its configuration.</p>
+					
+					            <p>
+					                <button class="btn btn-default" data-ng-click="changeConfig()">Click me to change startView</button>
+					            </p>
+					
+					            <div class="well">
+					                <p>Start View: {{ config.configureOnConfig.startView }}</p>
+					
+					                <datetimepicker data-ng-model="data.configureOnDate"
+					                                data-datetimepicker-config="config.configureOnConfig"></datetimepicker>
+					
+					            </div>
+					        </div>
+					
+					        <div class="col-sm-6">
+					            <h3>Embedded calendar with renderOn</h3>
+					            <h4>Every time you click the button, the selectable attribute is toggled.</h4>
+					
+					            <p><code>renderOn: 'valid-dates-changed'</code> to cause the directive to re-render.</p>
+					
+					            <p>
+					                <button class="btn btn-default" data-ng-click="renderOnClick()">Click me to re-render</button>
+					            </p>
+					
+					            <div class="well">
+					
+					                <datetimepicker data-ng-model="data.renderOnDate"
+					                                data-before-render='renderOnBeforeRender($dates)'
+					                                data-datetimepicker-config="config.renderOnConfig"></datetimepicker>
+					
+					            </div>
+					        </div>
+					
+					    </div>							
+							
+                        	<a ng-click="scrollTo('top')">Top</a>
+
+                </div>
+            </div>
+        </div>
+        <!-- //Footer -->
+        <footer class="fsm-footer">
+        </footer>
+    </div>
+</div>

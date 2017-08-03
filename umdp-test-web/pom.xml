@@ -1,0 +1,84 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.uming</groupId>
+		<artifactId>UMDP</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	<artifactId>umdp-test-web</artifactId>
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.uming</groupId>
+			<artifactId>umdp-common</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<finalName>UMDP</finalName>
+		<plugins>
+			<!-- <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<packagingExcludes>
+						WEB-INF/web.xml,
+						WEB-INF/lib/,
+						WEB-INF/classes/deploy/,
+						WEB-INF/classes/log4j.properties,
+						WEB-INF/classes/env.properties,
+						WEB-INF/classes/properties/
+					</packagingExcludes>
+					<webXml>src/main/resources/deploy/production/web.xml</webXml>
+					<warSourceExcludes>**/weblogic.xml,**/env.properties,**/log4j.properties</warSourceExcludes>
+					<webResources>
+						<resource>
+							<directory>src/main/resources/deploy/production</directory>
+							<targetPath>WEB-INF</targetPath>
+							<includes>
+								<include>weblogic.xml</include>
+							</includes>
+						</resource>
+						<resource>
+							<directory>src/main/resources/deploy/production</directory>
+							<targetPath>WEB-INF/classes</targetPath>
+							<includes>
+								<include>spring-config/**</include>
+							</includes>
+						</resource>
+						<resource>
+							<directory>../nsp-common/src/main/resources/hibernate-config</directory>
+							<targetPath>WEB-INF/classes/hibernate-config</targetPath>
+						</resource>
+						<resource>
+							<directory>${root.lib.path}</directory>
+							<targetPath>WEB-INF/lib</targetPath>
+							<includes>
+								<include>*.jar</include>
+							</includes>
+						</resource>
+					</webResources>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+						</manifest>
+					</archive>				
+				</configuration>
+			</plugin> -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven.compiler.version}</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<compilerArgument>-Xlint:all</compilerArgument>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
